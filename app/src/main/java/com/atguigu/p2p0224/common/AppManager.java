@@ -10,6 +10,14 @@ import java.util.Stack;
 
 public class AppManager {
 
+      /*
+    * 单例
+    * 第一步 私有化构造器
+    * 第二步 创建实例
+    * 第三步 创建一个方法 返回实例
+    *
+    * */
+
     private  AppManager(){}
 
     private static AppManager manager = new AppManager();
