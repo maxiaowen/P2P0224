@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.atguigu.p2p0224.R;
 import com.atguigu.p2p0224.common.AppManager;
+import com.atguigu.p2p0224.utils.UIUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -56,11 +57,11 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 //判断账号是否登录过，如果没有登录跳转到登录界面，或者跳转到主界面
-                if (isLogin()){
-                    startActivity(new Intent(SplashActivity.this,MainActivity.class));
+                if (isLogin()) {
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
 
-                }else{
-                    startActivity(new Intent(SplashActivity.this,LoginActivity.class));
+                } else {
+                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
 
                 }
                 //清除动画
@@ -77,6 +78,12 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        //第一个参数是 含有占位字符的字符串 第二个参数是占位字符的值
+
+        splashTvVersion.setText(
+                UIUtils.stringFormat(
+                        splashTvVersion.getText().toString(),
+                        getVersionCode()));
 
     }
 

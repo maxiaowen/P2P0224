@@ -26,4 +26,10 @@ public class UIUtils {
         return MyApplication.getContext();
     }
 
+    public static String stringFormat(String key,String value){
+        String format = String.format(key, value);
+
+        return format;
+    }
+
 }
