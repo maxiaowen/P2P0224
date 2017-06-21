@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">P2P0224</string>
-    <string name="splash_version">当前版本：%1$s</string>
+    <string name="splash_version">currentversion：%1$s</string>
 </resources>
