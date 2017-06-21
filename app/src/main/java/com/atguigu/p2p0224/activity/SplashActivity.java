@@ -82,7 +82,7 @@ public class SplashActivity extends AppCompatActivity {
 
         splashTvVersion.setText(
                 UIUtils.stringFormat(
-                        splashTvVersion.getText().toString(),
+                        R.string.splash_version,
                         getVersionCode()));
 
     }
