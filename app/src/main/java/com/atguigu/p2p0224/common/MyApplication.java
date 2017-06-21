@@ -9,12 +9,11 @@ import android.content.Context;
 
 public class MyApplication extends Application {
 
+    private static Context context;
+
     public static Context getContext() {
         return context;
     }
-
-    private static Context context;
-
     /*
     初始化上下文
      */
@@ -23,5 +22,8 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         context = this;
+
+        //初始化crashHandler
+//        CrashHandler.getInstance().init(context);
     }
 }
