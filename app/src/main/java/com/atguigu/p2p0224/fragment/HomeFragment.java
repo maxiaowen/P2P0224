@@ -15,9 +15,8 @@ import com.alibaba.fastjson.JSON;
 import com.atguigu.p2p0224.R;
 import com.atguigu.p2p0224.bean.IndexBean;
 import com.atguigu.p2p0224.common.AppNetConfig;
+import com.atguigu.p2p0224.utils.HttpUtils;
 import com.atguigu.p2p0224.utils.UIUtils;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.squareup.picasso.Picasso;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
@@ -77,39 +76,54 @@ public class HomeFragment extends Fragment {
 
     private void initData() {
         loadNet();
-        initBanner();
     }
 
     /**
      * 联网请求
      */
     private void loadNet() {
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.get(AppNetConfig.INDEX, new AsyncHttpResponseHandler(){
 
+        HttpUtils.getInstance().get(AppNetConfig.INDEX, new HttpUtils.OnHttpClientListener() {
             @Override
-            public void onSuccess(int statusCode, String content) {
-                super.onSuccess(statusCode, content);
-                Log.e("TAG", "请求成功: "+content);
-
-                //手动解析
-//                try {
-//                    parseJson(content);
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-
-                IndexBean indexBean = JSON.parseObject(content,IndexBean.class);
-                Log.e("TAG", "onSuccess: "+indexBean.getProInfo().getName());
-
+            public void onSuccess(String json) {
+                IndexBean indexBean = JSON.parseObject(json,IndexBean.class);
+//                Log.e("TAG", "请求成功: "+indexBean.getProInfo().getName());
+                initBanner(indexBean);
             }
 
             @Override
-            public void onFailure(Throwable error, String content) {
-                super.onFailure(error, content);
-                Log.e("TAG", "请求失败: "+content);
+            public void onFailure(String message) {
+                Log.e("TAG", "请求失败: "+message);
             }
         });
+
+
+//        AsyncHttpClient client = new AsyncHttpClient();
+//        client.get(AppNetConfig.INDEX, new AsyncHttpResponseHandler(){
+//
+//            @Override
+//            public void onSuccess(int statusCode, String content) {
+//                super.onSuccess(statusCode, content);
+//                Log.e("TAG", "请求成功: "+content);
+//
+//                //手动解析
+////                try {
+////                    parseJson(content);
+////                } catch (JSONException e) {
+////                    e.printStackTrace();
+////                }
+//
+//                IndexBean indexBean = JSON.parseObject(content,IndexBean.class);
+//                Log.e("TAG", "onSuccess: "+indexBean.getProInfo().getName());
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable error, String content) {
+//                super.onFailure(error, content);
+//                Log.e("TAG", "请求失败: "+content);
+//            }
+//        });
     }
 
     /**
@@ -153,9 +167,14 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private void initBanner() {
-        list.add(AppNetConfig.BASE_URL + "images/index02.png");
-//        Log.e("TAG",AppNetConfig.BASE_URL + "images/index02.png");
+    private void initBanner(IndexBean indexBean) {
+        List<IndexBean.ImageArrBean> imageArr = indexBean.getImageArr();
+        for(int i = 0; i < imageArr.size(); i++) {
+
+            String imaurl = imageArr.get(i).getIMAURL();
+            list.add(AppNetConfig.BASE_URL+imaurl);
+        }
+
         //设置图片加载器
         banner.setImageLoader(new GlideImageLoader());
         //设置图片集合
