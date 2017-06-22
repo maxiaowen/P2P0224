@@ -1,32 +1,26 @@
 package com.atguigu.p2p0224.fragment;
 
-import android.graphics.Color;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import com.atguigu.p2p0224.base.BaseFragment;
 
 /**
  * Created by Administrator on 2017/6/20.
  */
 
-public class InvestFragment extends Fragment {
+public class InvestFragment extends BaseFragment {
 
-    @Nullable
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        TextView textView = new TextView(getContext());
-        textView.setText("我是InvestFragment");
-        textView.setTextColor(Color.BLACK);
-        return textView;
+    protected void initTitle() {
+
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    protected void initData() {
 
+    }
+
+    @Override
+    public int getLayoutId() {
+        return 0;
     }
 }

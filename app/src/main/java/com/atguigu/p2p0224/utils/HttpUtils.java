@@ -20,30 +20,38 @@ public class HttpUtils {
         return httpUtils;
     }
 
+
+    private OnHttpClientListener httpClientListener;
+
     /**
      * get联网请求
      * @param url
      * @param httpClientListener
      */
     public void get(String url, final OnHttpClientListener httpClientListener){
-        httpClient.get(url,new AsyncHttpResponseHandler(){
-            @Override
-            public void onSuccess(int statusCode, String content) {
-                super.onSuccess(statusCode, content);
-                if(httpClientListener != null) {
-                    httpClientListener.onSuccess(content);
-                }
-
-            }
-            @Override
-            public void onFailure(Throwable error, String content) {
-                super.onFailure(error, content);
-                if(httpClientListener != null) {
-                    httpClientListener.onFailure(content);
-                }
-            }
-        });
+        this.httpClientListener = httpClientListener;
+        httpClient.get(url,handler);
     }
+
+    AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler(){
+        @Override
+        public void onSuccess(int statusCode, String content) {
+            super.onSuccess(statusCode, content);
+
+            if (httpClientListener != null){
+                httpClientListener.onSuccess(content);
+            }
+        }
+
+        @Override
+        public void onFailure(Throwable error, String content) {
+            super.onFailure(error, content);
+            if (httpClientListener != null){
+                httpClientListener.onFailure(content);
+            }
+        }
+
+    };
 
     /**
      * post连网请求

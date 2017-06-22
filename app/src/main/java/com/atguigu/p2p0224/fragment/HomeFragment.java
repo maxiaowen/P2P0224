@@ -1,22 +1,16 @@
 package com.atguigu.p2p0224.fragment;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.atguigu.p2p0224.R;
+import com.atguigu.p2p0224.base.BaseFragment;
 import com.atguigu.p2p0224.bean.IndexBean;
 import com.atguigu.p2p0224.common.AppNetConfig;
 import com.atguigu.p2p0224.utils.HttpUtils;
-import com.atguigu.p2p0224.utils.UIUtils;
 import com.squareup.picasso.Picasso;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
@@ -29,13 +23,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Created by Administrator on 2017/6/20.
  */
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends BaseFragment {
 
     @Bind(R.id.base_title)
     TextView baseTitle;
@@ -50,31 +43,14 @@ public class HomeFragment extends Fragment {
     @Bind(R.id.tv_home_yearrate)
     TextView tvHomeYearrate;
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = UIUtils.inflate(R.layout.fragment_home);
-        ButterKnife.bind(this, view);
-        return view;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        initView();
-        initData();
-        initListener();
-
-    }
-
-    private void initListener() {
-
-    }
-
     private List<String> list = new ArrayList<>();
 
-    private void initData() {
+    @Override
+    protected void initTitle() {
+        baseTitle.setText("首页");
+    }
+
+    public void initData() {
         loadNet();
     }
 
@@ -199,8 +175,7 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
+    public int getLayoutId() {
+        return R.layout.fragment_home;
     }
 }
