@@ -11,6 +11,7 @@ import com.atguigu.p2p0224.base.BaseFragment;
 import com.atguigu.p2p0224.bean.IndexBean;
 import com.atguigu.p2p0224.common.AppNetConfig;
 import com.atguigu.p2p0224.utils.HttpUtils;
+import com.atguigu.p2p0224.view.ProgressView;
 import com.squareup.picasso.Picasso;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Created by Administrator on 2017/6/20.
@@ -42,6 +44,8 @@ public class HomeFragment extends BaseFragment {
     TextView tvHomeProduct;
     @Bind(R.id.tv_home_yearrate)
     TextView tvHomeYearrate;
+    @Bind(R.id.proView)
+    ProgressView proView;
 
     private List<String> list = new ArrayList<>();
 
@@ -62,14 +66,15 @@ public class HomeFragment extends BaseFragment {
         HttpUtils.getInstance().get(AppNetConfig.INDEX, new HttpUtils.OnHttpClientListener() {
             @Override
             public void onSuccess(String json) {
-                IndexBean indexBean = JSON.parseObject(json,IndexBean.class);
+                IndexBean indexBean = JSON.parseObject(json, IndexBean.class);
 //                Log.e("TAG", "请求成功: "+indexBean.getProInfo().getName());
                 initBanner(indexBean);
+                initProgressView(indexBean);
             }
 
             @Override
             public void onFailure(String message) {
-                Log.e("TAG", "请求失败: "+message);
+                Log.e("TAG", "请求失败: " + message);
             }
         });
 
@@ -100,6 +105,11 @@ public class HomeFragment extends BaseFragment {
 //                Log.e("TAG", "请求失败: "+content);
 //            }
 //        });
+    }
+
+    private void initProgressView(IndexBean indexBean) {
+        String progress = indexBean.getProInfo().getProgress();
+        proView.setSweepAngle(Integer.parseInt(progress));
     }
 
     /**
@@ -139,16 +149,16 @@ public class HomeFragment extends BaseFragment {
         JSONObject proInfo = object.getJSONObject("proInfo");
         String name = proInfo.getString("name");
         int id = proInfo.getInt("id");
-        Log.d("json", "parseJson: "+name);
+        Log.d("json", "parseJson: " + name);
 
     }
 
     private void initBanner(IndexBean indexBean) {
         List<IndexBean.ImageArrBean> imageArr = indexBean.getImageArr();
-        for(int i = 0; i < imageArr.size(); i++) {
+        for (int i = 0; i < imageArr.size(); i++) {
 
             String imaurl = imageArr.get(i).getIMAURL();
-            list.add(AppNetConfig.BASE_URL+imaurl);
+            list.add(AppNetConfig.BASE_URL + imaurl);
         }
 
         //设置图片加载器
@@ -157,6 +167,12 @@ public class HomeFragment extends BaseFragment {
         banner.setImages(list);
         //启动banner
         banner.start();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 
     /*
