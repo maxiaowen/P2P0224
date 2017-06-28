@@ -3,8 +3,6 @@ package com.atguigu.p2p0224.activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
@@ -12,13 +10,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.atguigu.p2p0224.R;
+import com.atguigu.p2p0224.base.BaseActivity;
 import com.atguigu.p2p0224.common.AppManager;
 import com.atguigu.p2p0224.utils.UIUtils;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
 
     @Bind(R.id.iv_welcome_icon)
     ImageView ivWelcomeIcon;
@@ -27,23 +25,11 @@ public class SplashActivity extends AppCompatActivity {
     @Bind(R.id.activity_splash)
     RelativeLayout activitySplash;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
-        ButterKnife.bind(this);
-        AppManager.getInstance().addActivity(this);
-
-        initView();
-        initData();
-        initListener();
-    }
-
-    private void initListener() {
+    public void initListener() {
 
     }
 
-    private void initData() {
+    public void initData() {
 
         //设置动画
         AlphaAnimation animation = new AlphaAnimation(0, 1);
@@ -77,7 +63,7 @@ public class SplashActivity extends AppCompatActivity {
         ivWelcomeIcon.startAnimation(animation);
     }
 
-    private void initView() {
+    public void initView() {
         //第一个参数是 含有占位字符的字符串 第二个参数是占位字符的值
 
         splashTvVersion.setText(
@@ -85,6 +71,11 @@ public class SplashActivity extends AppCompatActivity {
                         R.string.splash_version,
                         getVersionCode()));
 
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_splash;
     }
 
     /*
