@@ -43,13 +43,17 @@ public abstract class BaseFragment extends Fragment {
 
          loadingPager = new LoadingPager(getActivity()) {
             @Override
-            public int getLayoutid() {
-                return getLayoutId();
+            public View getView() {
+                View view = View.inflate(getActivity(),
+                        BaseFragment.this.getLayoutId(),null);
+
+                ButterKnife.bind(BaseFragment.this,view);
+                return  view;
             }
 
             @Override
             public void setResult(View successView, String json) {
-                ButterKnife.bind(BaseFragment.this,successView);
+//                ButterKnife.bind(BaseFragment.this,successView);
                 setContent(json);
 
             }
@@ -65,7 +69,11 @@ public abstract class BaseFragment extends Fragment {
 
     public abstract String getChildUrl();
 
-    public abstract void setContent(String json);
+      /*
+    * 连网的情况下 需要重写
+    *
+    * */
+    public void setContent(String json){}
 
 
     @Override
