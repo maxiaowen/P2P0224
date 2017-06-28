@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Created by Administrator on 2017/6/20.
@@ -181,11 +180,6 @@ public class HomeFragment extends BaseFragment {
         banner.start();
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
-    }
 
     /*
    * 加载图片类
