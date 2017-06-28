@@ -1,11 +1,14 @@
 package com.atguigu.p2p0224.base;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.atguigu.p2p0224.view.LoadingPager;
 
@@ -22,14 +25,14 @@ public abstract class BaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        if(getLayoutId() == 0) {
-//            TextView textView = new TextView(getContext());
-//            textView.setText("你的View哪儿去了！！");
-//            textView.setGravity(Gravity.CENTER);
-//            textView.setTextColor(Color.RED);
-//            textView.setTextSize(30);
-//            return textView;
-//        }
+        if(getLayoutId() == 0) {
+            TextView textView = new TextView(getContext());
+            textView.setText("你的View哪儿去了！！");
+            textView.setGravity(Gravity.CENTER);
+            textView.setTextColor(Color.RED);
+            textView.setTextSize(30);
+            return textView;
+        }
 //        View view = View.inflate(getContext(),getLayoutId(),null);
 //        ButterKnife.bind(this,view);
 //
@@ -68,8 +71,11 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //连接网络
-        loadingPager.loadNet();
+        if(getLayoutId() != 0) {
+            //连接网络
+            loadingPager.loadNet();
+        }
+
     }
 
     public abstract void initTitle();

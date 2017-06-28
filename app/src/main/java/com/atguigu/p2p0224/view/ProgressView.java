@@ -68,8 +68,9 @@ public class ProgressView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        width = getWidth();
-        height = getHeight();
+        width = getMeasuredWidth();
+        height = getMeasuredHeight();
+
     }
 
     @Override

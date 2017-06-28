@@ -72,12 +72,12 @@ public abstract class LoadingPager extends FrameLayout {
 
         errorView.setVisibility(currentState == STATE_ERROR ? View.VISIBLE : View.GONE);
         loadingView.setVisibility(currentState == STATE_LOADING ? View.VISIBLE : View.GONE);
-        
-        if(successView == null) {
+
+        if (successView == null) {
             successView = UIUtils.inflate(getLayoutid());
             this.addView(successView);
         }
-        successView.setVisibility(currentState == STATE_SUCCESS? View.VISIBLE:View.GONE);
+        successView.setVisibility(currentState == STATE_SUCCESS ? View.VISIBLE : View.GONE);
 
     }
 
@@ -92,47 +92,99 @@ public abstract class LoadingPager extends FrameLayout {
     *
     * */
 
-    public void loadNet(){
+    public void loadNet() {
         String url = getUrl();
 
         //判断是否加载网络
-        if(TextUtils.isEmpty(url)) {
+        if (TextUtils.isEmpty(url)) {
             currentState = STATE_SUCCESS;
             showSafePager();
-        }else {
-            HttpUtils.getInstance().get(url,new HttpUtils.OnHttpClientListener() {
+        } else {
+            HttpUtils.getInstance().get(url, new HttpUtils.OnHttpClientListener() {
                 @Override
                 public void onSuccess(String json) {
-                    Log.d("loadingPager", "onSuccess: "+json);
+                    Log.d("loadingPager", "onSuccess: " + json);
                     //处理当前获取的JSON串是否是网页
-                    if (json.indexOf("title") > 0){
-                        currentState = STATE_ERROR;
-
-                        showSafePager();
+                    if (json.indexOf("title") > 0) {
+                        //currentState = STATE_ERROR;
+                        loadState = LoadState.ERROR;
+                        //showSafePager();
+                        //设置状态
+                        showState();
                     }else{
                         //改变当前状态
-                        currentState = STATE_SUCCESS;
-                        setResult(successView, json);
-                        showSafePager();
+                        //currentState = STATE_SUCCESS;
+                        loadState = LoadState.SUCCESS;
+                        loadState.setJson(json);
+                        //setResult(successView, json);
+                        //showSafePager();
+                        showState();
                     }
 
                 }
 
                 @Override
                 public void onFailure(String message) {
-                    currentState = STATE_ERROR;
-                    showSafePager();
+                    loadState = LoadState.ERROR;
+                    //showSafePager();
+                    showState();
 
                 }
             });
         }
 
     }
+    private void showState() {
+
+        switch (loadState){
+            case SUCCESS:
+                currentState = STATE_SUCCESS;
+                break;
+            case ERROR:
+                currentState = STATE_ERROR;
+                break;
+            case LOADING:
+                currentState = STATE_LOADING;
+                break;
+        }
+
+        showSafePager();
+
+        if (currentState == STATE_SUCCESS){
+            setResult(successView, loadState.SUCCESS.getJson());
+        }
+
+    }
+
+    /*
+   * 枚举 放了 成功 失败 加载中的常量
+   *
+   * */
+    private LoadState loadState;
+
+    public enum LoadState {
+        SUCCESS(0), ERROR(1), LOADING(2);
+        private int state;
+        private String json;
+
+        LoadState(int state) {
+            this.state = state;
+        }
+
+        public String getJson() {
+            return json;
+        }
+
+        public void setJson(String json) {
+            this.json = json;
+        }
+    }
 
     public abstract void setResult(View successView, String json);
 
     /**
      * 获取url地址
+     *
      * @return
      */
     public abstract String getUrl();
