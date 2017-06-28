@@ -198,7 +198,7 @@ public class HomeFragment extends BaseFragment {
         }
     }
 
-    private void initView() {
+    public void initView() {
 
     }
 
