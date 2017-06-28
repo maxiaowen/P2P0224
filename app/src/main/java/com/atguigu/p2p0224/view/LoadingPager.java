@@ -1,7 +1,9 @@
 package com.atguigu.p2p0224.view;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -93,23 +95,38 @@ public abstract class LoadingPager extends FrameLayout {
     public void loadNet(){
         String url = getUrl();
 
-        HttpUtils.getInstance().get(url,new HttpUtils.OnHttpClientListener() {
-            @Override
-            public void onSuccess(String json) {
-                //改变当前状态
-                currentState = STATE_SUCCESS;
-                setResult(successView,json);
-                showSafePager();
+        //判断是否加载网络
+        if(TextUtils.isEmpty(url)) {
+            currentState = STATE_SUCCESS;
+            showSafePager();
+        }else {
+            HttpUtils.getInstance().get(url,new HttpUtils.OnHttpClientListener() {
+                @Override
+                public void onSuccess(String json) {
+                    Log.d("loadingPager", "onSuccess: "+json);
+                    //处理当前获取的JSON串是否是网页
+                    if (json.indexOf("title") > 0){
+                        currentState = STATE_ERROR;
 
-            }
+                        showSafePager();
+                    }else{
+                        //改变当前状态
+                        currentState = STATE_SUCCESS;
+                        setResult(successView, json);
+                        showSafePager();
+                    }
 
-            @Override
-            public void onFailure(String message) {
-                currentState = STATE_ERROR;
-                showSafePager();
+                }
 
-            }
-        });
+                @Override
+                public void onFailure(String message) {
+                    currentState = STATE_ERROR;
+                    showSafePager();
+
+                }
+            });
+        }
+
     }
 
     public abstract void setResult(View successView, String json);
