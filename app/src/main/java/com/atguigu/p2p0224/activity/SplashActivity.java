@@ -82,7 +82,7 @@ public class SplashActivity extends BaseActivity {
    * 判断是否登录过
    * */
     public boolean isLogin() {
-        return true;
+        return false;
     }
 
     /*
