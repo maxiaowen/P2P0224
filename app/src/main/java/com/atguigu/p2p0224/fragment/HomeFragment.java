@@ -10,7 +10,6 @@ import com.atguigu.p2p0224.R;
 import com.atguigu.p2p0224.base.BaseFragment;
 import com.atguigu.p2p0224.bean.IndexBean;
 import com.atguigu.p2p0224.common.AppNetConfig;
-import com.atguigu.p2p0224.utils.HttpUtils;
 import com.atguigu.p2p0224.view.ProgressView;
 import com.squareup.picasso.Picasso;
 import com.youth.banner.Banner;
@@ -50,7 +49,20 @@ public class HomeFragment extends BaseFragment {
     private List<String> list = new ArrayList<>();
 
     @Override
-    protected void initTitle() {
+    public String getChildUrl() {
+        return AppNetConfig.INDEX;
+    }
+
+    @Override
+    public void setContent(String json) {
+        //解析数据
+        IndexBean indexBean = JSON.parseObject(json, IndexBean.class);
+        initBanner(indexBean);
+        initProgressView(indexBean);
+    }
+
+    @Override
+    public void initTitle() {
         baseTitle.setText("首页");
     }
 
@@ -63,20 +75,20 @@ public class HomeFragment extends BaseFragment {
      */
     private void loadNet() {
 
-        HttpUtils.getInstance().get(AppNetConfig.INDEX, new HttpUtils.OnHttpClientListener() {
-            @Override
-            public void onSuccess(String json) {
-                IndexBean indexBean = JSON.parseObject(json, IndexBean.class);
-//                Log.e("TAG", "请求成功: "+indexBean.getProInfo().getName());
-                initBanner(indexBean);
-                initProgressView(indexBean);
-            }
-
-            @Override
-            public void onFailure(String message) {
-                Log.e("TAG", "请求失败: " + message);
-            }
-        });
+//        HttpUtils.getInstance().get(AppNetConfig.INDEX, new HttpUtils.OnHttpClientListener() {
+//            @Override
+//            public void onSuccess(String json) {
+//                IndexBean indexBean = JSON.parseObject(json, IndexBean.class);
+////                Log.e("TAG", "请求成功: "+indexBean.getProInfo().getName());
+//                initBanner(indexBean);
+//                initProgressView(indexBean);
+//            }
+//
+//            @Override
+//            public void onFailure(String message) {
+//                Log.e("TAG", "请求失败: " + message);
+//            }
+//        });
 
 
 //        AsyncHttpClient client = new AsyncHttpClient();

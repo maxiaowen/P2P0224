@@ -2,6 +2,7 @@ package com.atguigu.p2p0224.common;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Handler;
 
 /**
  * Created by Administrator on 2017/6/20.
@@ -10,6 +11,9 @@ import android.content.Context;
 public class MyApplication extends Application {
 
     private static Context context;
+
+    private static Handler handler;
+    private static int pid;
 
     public static Context getContext() {
         return context;
@@ -25,5 +29,16 @@ public class MyApplication extends Application {
 
         //初始化crashHandler
 //        CrashHandler.getInstance().init(context);
+
+        handler = new Handler();
+        pid = android.os.Process.myPid();
+    }
+
+    public static Handler getHandler() {
+        return handler;
+    }
+
+    public static int getPid() {
+        return pid;
     }
 }
