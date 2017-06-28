@@ -1,6 +1,5 @@
 package com.atguigu.p2p0224.fragment;
 
-import android.graphics.Color;
 import android.view.View;
 import android.widget.TextView;
 
@@ -8,8 +7,6 @@ import com.atguigu.p2p0224.R;
 import com.atguigu.p2p0224.base.BaseFragment;
 import com.atguigu.p2p0224.utils.UIUtils;
 import com.atguigu.p2p0224.view.randomLayout.StellarMap;
-
-import java.util.Random;
 
 import butterknife.Bind;
 
@@ -44,7 +41,7 @@ public class InvestReFragment extends BaseFragment {
     }
 
     @Override
-    public int getLayoutId() {
+    public int getLayoutId()  {
         return R.layout.fragment_recommand;
     }
 
@@ -116,12 +113,13 @@ public class InvestReFragment extends BaseFragment {
             TextView textView = new TextView(getActivity());
             textView.setText(datas[group*7+position]);
             //产生随机颜色
-            Random random = new Random();
-            int red = random.nextInt(100)+50;
-            int green = random.nextInt(100)+50;
-            int blue = random.nextInt(100)+50;
-
-            textView.setTextColor(Color.rgb(red,green,blue));
+//            Random random = new Random();
+//            int red = random.nextInt(100)+50;
+//            int green = random.nextInt(100)+50;
+//            int blue = random.nextInt(100)+50;
+//
+//            textView.setTextColor(Color.rgb(red,green,blue));
+            textView.setTextColor(UIUtils.getColor());
             return textView;
         }
 
