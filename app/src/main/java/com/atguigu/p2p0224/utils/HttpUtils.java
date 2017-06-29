@@ -64,10 +64,14 @@ public class HttpUtils {
 
         this.httpClientListener = onHttpClientListener;
 
-        RequestParams params = new RequestParams();
+        RequestParams params = new RequestParams(map);
 
         httpClient.post(url,params,handler);
     }
+
+
+
+
 
 
 
