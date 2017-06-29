@@ -90,6 +90,29 @@ public abstract class BaseActivity extends AppCompatActivity {
         sp.edit().clear().commit();
     }
 
+    /*
+   * 保存图片地址
+   * */
+    public void saveImage(String image){
+        SharedPreferences sp = getSharedPreferences(spName, MODE_PRIVATE);
+        SharedPreferences.Editor edit = sp.edit();
+        edit.putString("imageurl",image);
+        edit.putBoolean("isFile",true);
+        edit.commit();
+    }
+    /*
+    * 获取图片
+    * */
+    public String getImage(){
+        SharedPreferences sp = getSharedPreferences(spName, MODE_PRIVATE);
+        boolean isFile = sp.getBoolean("isFile", false);
+        if (isFile){
+            return sp.getString("imageurl","");
+        }else{
+            return "";
+        }
+    }
+
 
 
     @Override
