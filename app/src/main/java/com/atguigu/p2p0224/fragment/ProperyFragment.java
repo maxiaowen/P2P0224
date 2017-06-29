@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.atguigu.p2p0224.R;
 import com.atguigu.p2p0224.activity.IconSettingsActivity;
 import com.atguigu.p2p0224.activity.MainActivity;
+import com.atguigu.p2p0224.activity.PayActivity;
 import com.atguigu.p2p0224.base.BaseFragment;
 import com.atguigu.p2p0224.common.AppNetConfig;
 import com.squareup.picasso.Picasso;
@@ -70,8 +71,15 @@ public class ProperyFragment extends BaseFragment {
         tvSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //起动设置界面
+                //启动设置界面
                 startActivity(new Intent(getActivity(),IconSettingsActivity.class));
+            }
+        });
+
+        recharge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),PayActivity.class));
             }
         });
     }
