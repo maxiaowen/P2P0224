@@ -88,6 +88,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void clearSp(){
         SharedPreferences sp = getSharedPreferences(spName, MODE_PRIVATE);
         sp.edit().clear().commit();
+
+        SharedPreferences sp2 = getSharedPreferences("isChecked", MODE_PRIVATE);
+        sp2.edit().clear().commit();
     }
 
     /*
