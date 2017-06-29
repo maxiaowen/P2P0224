@@ -11,7 +11,10 @@ import com.atguigu.p2p0224.R;
 import com.atguigu.p2p0224.activity.IconSettingsActivity;
 import com.atguigu.p2p0224.activity.MainActivity;
 import com.atguigu.p2p0224.activity.PayActivity;
+import com.atguigu.p2p0224.activity.TouZiActivity;
+import com.atguigu.p2p0224.activity.TouZiZhiGuanActivity;
 import com.atguigu.p2p0224.activity.WidthDrawActivity;
+import com.atguigu.p2p0224.activity.ZiChanActivity;
 import com.atguigu.p2p0224.base.BaseFragment;
 import com.atguigu.p2p0224.common.AppNetConfig;
 import com.squareup.picasso.Picasso;
@@ -88,6 +91,27 @@ public class ProperyFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(),WidthDrawActivity.class));
+            }
+        });
+
+        llTouzi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),TouZiActivity.class));
+            }
+        });
+
+        llTouziZhiguan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),TouZiZhiGuanActivity.class));
+            }
+        });
+
+        llZichan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),ZiChanActivity.class));
             }
         });
     }
