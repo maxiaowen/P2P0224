@@ -1,5 +1,6 @@
 package com.atguigu.p2p0224.activity;
 
+import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
@@ -120,7 +121,11 @@ public class MainActivity extends BaseActivity {
     }
 
     public void initData() {
-
+        //验证手势密码是否开启
+        boolean toggle = get("toggle");
+        if (toggle){
+            startActivity(new Intent(this, GestureVerifyActivity.class));
+        }
     }
 
     public void initView() {

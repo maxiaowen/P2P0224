@@ -62,7 +62,9 @@
         <activity android:name=".activity.WidthDrawActivity" />
         <activity android:name=".activity.TouZiActivity" />
         <activity android:name=".activity.TouZiZhiGuanActivity" />
-        <activity android:name=".activity.ZiChanActivity"></activity>
+        <activity android:name=".activity.ZiChanActivity" />
+        <activity android:name=".activity.GestureEditActivity" />
+        <activity android:name=".activity.GestureVerifyActivity"></activity>
     </application>
 
 </manifest>
