@@ -84,6 +84,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         return bean;
     }
 
+    //清除SP内容
+    public void clearSp(){
+        SharedPreferences sp = getSharedPreferences(spName, MODE_PRIVATE);
+        sp.edit().clear().commit();
+    }
+
 
 
     @Override

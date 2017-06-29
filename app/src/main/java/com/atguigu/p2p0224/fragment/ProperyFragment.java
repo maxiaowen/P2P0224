@@ -94,6 +94,7 @@ public class ProperyFragment extends BaseFragment {
 
         MainActivity mainActivity = (MainActivity)getActivity();
         try {
+//            String name1 = mainActivity.getUser().getName();
             String name = new String(mainActivity.getUser().getName().getBytes(),"GBK");
             tvMeName.setText(name);
         } catch (Exception e) {
